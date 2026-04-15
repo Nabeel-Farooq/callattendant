@@ -1,6 +1,3 @@
-# Call Attendant
-![PyPI](https://img.shields.io/pypi/v/callattendant?style=flat&link=https://pypi.org/project/callattendant/) ![PyPI - License](https://img.shields.io/pypi/l/callattendant?link=https://github.com/emxsys/callattendant/blob/master/LICENSE) ![PyPI - Status](https://img.shields.io/pypi/status/callattendant) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/emxsys/callattendant/callattendant)
-
 #### `pip install callattendant`
 
 The Call Attendant (__callattendant__) is an auto attendant with an integrated call blocker and 
@@ -17,15 +14,6 @@ by filing [issues](https://github.com/emxsys/callattendant/issues), joining the
 [forum](https://groups.io/g/callattendant) and/or submitting 
 [pull requests](https://github.com/emxsys/callattendant/pulls).
 Thanks!_
-
-#### Support Links
-- [Web Page](https://emxsys.github.io/callattendant/)
-- [Wiki](https://github.com/emxsys/callattendant/wiki)
-- [Forum](https://groups.io/g/callattendant)
-
-#### Table of Contents
-- [Overview](#overview)
-- [Quick Start](#quick-start)
 
 ## Overview
 The Call Attendant (__callattendant__) is a python-based, automated call attendant that runs on a
@@ -52,24 +40,10 @@ e.g, "Press 1 to leave a message"
 You can review call history, voice messages, permitted and blocked numbers, and performing caller
 management through the Call Attendant's web interface. Here is an example of the home page with metrics
 and a convienient list of recent calls. For a complete description see the
-[User Guide](https://github.com/emxsys/callattendant/wiki/User-Guide).
+
 
 ##### _Screenshots of the home page as seen on an IPad Pro and a Pixel 2 phone_
 ![Dashboard-Responsive](https://github.com/emxsys/callattendant/raw/master/docs/dashboard-responsive.png)
-
-### Documentation
-The project wiki on GitHub contains the documentation for the Call Attendant:
-
-- See the [Wiki Home](https://github.com/emxsys/callattendant/wiki/Home) for complete
-installation, configuration, and operation instructions.
-- See the [User Guide](https://github.com/emxsys/callattendant/wiki/User-Guide) section for the
-web interface instructions.
-- The [Developer Guide](https://github.com/emxsys/callattendant/wiki/Developer-Guide) section
-describes the software architecture and software development plan, and shows you how to setup
-your software development environment.
-- The [Advanced](https://github.com/emxsys/callattendant/wiki/Advanced) section addresses more
-complex setups and situations. For instance, _Running as a Service_.
-
 
 ### Hardware Requirements
 The __callattendant__ uses the following hardware:
