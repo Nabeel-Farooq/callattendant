@@ -1,0 +1,209 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Class Diagram - Logical View</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		callattendent	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+<a href="Model_UwEzcmaGAqBwARCb.html" class="PageParentTitle">Logical Model : Model</a>	</p>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Class Diagram - Logical View		</span>
+<a onclick="javascript: showVpLink('callattendent.vpp://diagram/0mWdymaGAqBwAR_W', 'Logical View\ncallattendent.vpp://diagram/0mWdymaGAqBwAR_W', 'Logical View', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|149.0|573.0|100.0|53.0|Class_PFsizmaGAqBwAXxr.html|Class_PFsizmaGAqBwAXxr.html|3FsizmaGAqBwAXxp" id="option3FsizmaGAqBwAXxp">BlockedIndicator : Class</option>
+<option value="shape|95.0|553.0|108.0|53.0|Class_O8sizmaGAqBwAXxi.html|Class_O8sizmaGAqBwAXxi.html|28sizmaGAqBwAXxg" id="option28sizmaGAqBwAXxg">ApprovedIndicator : Class</option>
+<option value="shape|38.0|537.0|87.0|53.0|Class_RWoCzmaGAqBwAXrr.html|Class_RWoCzmaGAqBwAXrr.html|BWoCzmaGAqBwAXrZ" id="optionBWoCzmaGAqBwAXrZ">RingIndicator : Class</option>
+<option value="shape|401.0|436.0|121.0|54.0|Class_az_czmaGAqBwAWqG.html|Class_az_czmaGAqBwAWqG.html|qz_czmaGAqBwAWqF" id="optionqz_czmaGAqBwAWqF">VoiceMail : Class</option>
+<option value="shape|58.0|62.0|80.0|40.0|Class_cqaMzmaGAqBwAWg5.html|Class_cqaMzmaGAqBwAWg5.html|sqaMzmaGAqBwAWg4" id="optionsqaMzmaGAqBwAWg4">WebApp : Class</option>
+<option value="shape|9.0|2.0|182.0|121.0|Package_v98MzmaGAqBwAWgk.html|Package_v98MzmaGAqBwAWgk.html|v98MzmaGAqBwAWgj" id="optionv98MzmaGAqBwAWgj">User Interface : Package</option>
+<option value="shape|2.0|318.0|283.0|318.0|Package_a7_0zmaGAqBwAWfq.html|Package_a7_0zmaGAqBwAWfq.html|a7_0zmaGAqBwAWfp" id="optiona7_0zmaGAqBwAWfp">Hardware : Package</option>
+<option value="shape|636.0|291.0|105.0|40.0|Class_WxQ5KmaGAqBwATre.html|Class_WxQ5KmaGAqBwATre.html|WxQ5KmaGAqBwATrd" id="optionWxQ5KmaGAqBwATrd">NomoroboService : Class</option>
+<option value="shape|401.0|93.0|80.0|40.0|Class_hRxZKmaGAqBwATqE.html|Class_hRxZKmaGAqBwATqE.html|hRxZKmaGAqBwATqD" id="optionhRxZKmaGAqBwATqD">CallLogger : Class</option>
+<option value="shape|639.0|186.0|93.0|40.0|Class_nZ1uKmaGAqBwATkD.html|Class_nZ1uKmaGAqBwATkD.html|nZ1uKmaGAqBwATkC" id="optionnZ1uKmaGAqBwATkC">Blacklist : Class</option>
+<option value="shape|636.0|81.0|93.0|40.0|Class_5JFuKmaGAqBwATj4.html|Class_5JFuKmaGAqBwATj4.html|5JFuKmaGAqBwATj3" id="option5JFuKmaGAqBwATj3">Whitelist : Class</option>
+<option value="shape|25.0|189.0|149.0|53.0|Class_9MNjymaGAqBwASIJ.html|Class_9MNjymaGAqBwASIJ.html|9MNjymaGAqBwASIH" id="option9MNjymaGAqBwASIH">CallAttendant : Class</option>
+<option value="shape|362.0|168.0|134.0|83.0|Class_FOhdymaGAqBwASAK.html|Class_FOhdymaGAqBwASAK.html|FOhdymaGAqBwASAJ" id="optionFOhdymaGAqBwASAJ">CallScreener : Class</option>
+<option value="shape|38.0|382.0|121.0|57.0|Class_6xedymaGAqBwAR_3.html|Class_6xedymaGAqBwAR_3.html|6xedymaGAqBwAR_2" id="option6xedymaGAqBwAR_2">Modem : Class</option>
+<option value="shape|330.0|40.0|427.0|301.0|Package_nL8RTmaGAqBwARbk.html|Package_nL8RTmaGAqBwARbk.html|nL8RTmaGAqBwARbj" id="optionnL8RTmaGAqBwARbj">Screening : Package</option>
+<option value="shape|349.0|371.0|389.0|147.0|Package__C0A1C6GAqAAzDhs.html|Package__C0A1C6GAqAAzDhs.html|.C0A1C6GAqAAzDhr" id="option.C0A1C6GAqAAzDhr">Messaging : Package</option>
+<option value="shape|601.0|436.0|120.0|53.0|Class_PPZA1C6GAqAAzDjP.html|Class_PPZA1C6GAqAAzDjP.html|PPZA1C6GAqAAzDjO" id="optionPPZA1C6GAqAAzDjO">Message : Class</option>
+<option value="shape|138.0|469.0|119.0|53.0|Class_IYMg1C6GAqAAzDlE.html|Class_IYMg1C6GAqAAzDlE.html|wYMg1C6GAqAAzDlC" id="optionwYMg1C6GAqAAzDlC">MessageIndicator : Class</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Logical_View.png" usemap="#diagram_map" class="Image" width="761" height="640"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="174.0, 208.0, 174.0, 222.0, 362.0, 222.0, 362.0, 208.0" coords2="174.0, 208.0, 174.0, 222.0, 362.0, 222.0, 362.0, 208.0" shape="poly" alt="checks caller id:Association" id="areadiagram_map_8ypdymaGAqBwASAa" href="Association_cCpdymaGAqBwASAV.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="91.0, 242.0, 91.0, 382.0, 105.0, 382.0, 105.0, 242.0" coords2="91.0, 242.0, 91.0, 382.0, 105.0, 382.0, 105.0, 242.0" shape="poly" alt="reads caller ID:Association" id="areadiagram_map_obddymaGAqBwASA6" href="Association_mzddymaGAqBwASA1.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="636.0, 113.0, 486.0, 163.0, 487.42856, 168.0, 496.0, 168.0, 496.0, 174.98709, 645.0, 125.0, 644.1429, 121.0, 636.0, 121.0, 636.0, 113.0" coords2="636.0, 113.0, 486.0, 163.0, 487.42856, 168.0, 496.0, 168.0, 496.0, 174.98709, 645.0, 125.0, 644.1429, 121.0, 636.0, 121.0, 636.0, 113.0" shape="poly" alt="approves callers:Association" id="areadiagram_map_cSTuKmaGAqBwATkx" href="Association__8TuKmaGAqBwATks.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="496.0, 199.0, 496.0, 213.0, 639.0, 213.0, 639.0, 199.0" coords2="496.0, 199.0, 496.0, 213.0, 639.0, 213.0, 639.0, 199.0" shape="poly" alt="disapproves callers:Association" id="areadiagram_map_IOXuKmaGAqBwATlS" href="Association_YWXuKmaGAqBwATlN.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="401.0, 125.46281, 165.0, 183.0, 165.85715, 189.0, 174.0, 189.0, 174.0, 195.2934, 174.0, 195.2934, 409.0, 138.0, 408.2857, 133.0, 401.0, 133.0, 401.0, 125.46281" coords2="401.0, 125.46281, 165.0, 183.0, 165.85715, 189.0, 174.0, 189.0, 174.0, 195.2934, 174.0, 195.2934, 409.0, 138.0, 408.2857, 133.0, 401.0, 133.0, 401.0, 125.46281" shape="poly" alt="logs all calls:Association" id="areadiagram_map__ZxZKmaGAqBwATqO" href="Association_3JxZKmaGAqBwATqJ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="496.0, 242.74193, 496.0, 251.0, 487.14285, 251.0, 486.0, 255.0, 636.0, 298.26923, 636.0, 291.0, 643.9286, 291.0, 645.0, 286.0, 496.0, 242.74193" coords2="496.0, 242.74193, 496.0, 251.0, 487.14285, 251.0, 486.0, 255.0, 636.0, 298.26923, 636.0, 291.0, 643.9286, 291.0, 645.0, 286.0, 496.0, 242.74193" shape="poly" alt="checks unknown callers:Association" id="areadiagram_map_wFQ5KmaGAqBwATro" href="Association_bpQ5KmaGAqBwATrj.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="74.0, 439.0, 74.0, 537.0, 88.0, 537.0, 88.0, 439.0" coords2="74.0, 439.0, 74.0, 537.0, 88.0, 537.0, 88.0, 439.0" shape="poly" alt="indicates status:Association" id="areadiagram_map_W_cFKmaGAqBwATu3" href="Association_dPcFKmaGAqBwATuy.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="91.0, 102.0, 91.0, 189.0, 105.0, 189.0, 105.0, 102.0" coords2="91.0, 102.0, 91.0, 189.0, 105.0, 189.0, 105.0, 102.0" shape="poly" alt="Flask web app:Association" id="areadiagram_map_xCJMzmaGAqBwAWhp" href="Association_nsJMzmaGAqBwAWhk.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="174.0, 233.53941, 174.0, 242.0, 162.0, 242.0, 401.0, 444.30707, 401.0, 436.0, 411.18182, 436.0, 412.0, 435.0, 174.0, 233.53941" coords2="174.0, 233.53941, 174.0, 242.0, 162.0, 242.0, 401.0, 444.30707, 401.0, 436.0, 411.18182, 436.0, 412.0, 435.0, 174.0, 233.53941" shape="poly" alt="provides voice messaging:Association" id="areadiagram_map_DxrQ1C6GAqAAzDuT" href="Association_uhrQ1C6GAqAAzDuO.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="257.0, 478.0, 257.0, 492.0, 410.0, 492.0, 410.0, 490.0, 401.0, 490.0, 401.0, 478.0" coords2="257.0, 478.0, 257.0, 492.0, 410.0, 492.0, 410.0, 490.0, 401.0, 490.0, 401.0, 478.0" shape="poly" alt="message waiting status:Association" id="areadiagram_map_TTMw1C6GAqAAzDvh" href="Association_PDMw1C6GAqAAzDvc.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="522.0, 455.0, 522.0, 469.0, 601.0, 469.0, 601.0, 455.0" coords2="522.0, 455.0, 522.0, 469.0, 601.0, 469.0, 601.0, 455.0" shape="poly" alt=":Association" id="areadiagram_map_jyGw1C6GAqAAzDwK" href="Association_0iGw1C6GAqAAzDwF.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="138, 469, 257, 522" coords2="138, 469, 257, 522" shape="rect" alt="MessageIndicator:Class" id="areadiagram_map_wYMg1C6GAqAAzDlC" href="Class_IYMg1C6GAqAAzDlE.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="601, 436, 721, 489" coords2="601, 436, 721, 489" shape="rect" alt="Message:Class" id="areadiagram_map_PPZA1C6GAqAAzDjO" href="Class_PPZA1C6GAqAAzDjP.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="401, 436, 522, 490" coords2="401, 436, 522, 490" shape="rect" alt="VoiceMail:Class" id="areadiagram_map_qz_czmaGAqBwAWqF" href="Class_az_czmaGAqBwAWqG.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="349, 371, 738, 518" coords2="349, 371, 738, 518" shape="rect" alt="Messaging:Package" id="areadiagram_map_.C0A1C6GAqAAzDhr" href="Package__C0A1C6GAqAAzDhs.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="149, 573, 249, 626" coords2="149, 573, 249, 626" shape="rect" alt="BlockedIndicator:Class" id="areadiagram_map_3FsizmaGAqBwAXxp" href="Class_PFsizmaGAqBwAXxr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="95, 553, 203, 606" coords2="95, 553, 203, 606" shape="rect" alt="ApprovedIndicator:Class" id="areadiagram_map_28sizmaGAqBwAXxg" href="Class_O8sizmaGAqBwAXxi.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="38, 537, 125, 590" coords2="38, 537, 125, 590" shape="rect" alt="RingIndicator:Class" id="areadiagram_map_BWoCzmaGAqBwAXrZ" href="Class_RWoCzmaGAqBwAXrr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="58, 62, 138, 102" coords2="58, 62, 138, 102" shape="rect" alt="WebApp:Class" id="areadiagram_map_sqaMzmaGAqBwAWg4" href="Class_cqaMzmaGAqBwAWg5.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="9, 2, 191, 123" coords2="9, 2, 191, 123" shape="rect" alt="User Interface:Package" id="areadiagram_map_v98MzmaGAqBwAWgj" href="Package_v98MzmaGAqBwAWgk.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="38, 382, 159, 451.0" coords2="38, 382, 159, 451.0" shape="rect" alt="Modem:Class" id="areadiagram_map_6xedymaGAqBwAR_2" href="Class_6xedymaGAqBwAR_3.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','38, 382, 159, 439',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('InteractionDiagram_28p5KmaGAqBwATsn.html?shapeid=3t55KmaGAqBwATs_/modem/LifeLine')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '38, 382, 159, 439')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="2, 318, 285, 636" coords2="2, 318, 285, 636" shape="rect" alt="Hardware:Package" id="areadiagram_map_a7_0zmaGAqBwAWfp" href="Package_a7_0zmaGAqBwAWfq.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="636, 291, 741, 331" coords2="636, 291, 741, 331" shape="rect" alt="NomoroboService:Class" id="areadiagram_map_WxQ5KmaGAqBwATrd" href="Class_WxQ5KmaGAqBwATre.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="401, 93, 481, 145.0" coords2="401, 93, 481, 145.0" shape="rect" alt="CallLogger:Class" id="areadiagram_map_hRxZKmaGAqBwATqD" href="Class_hRxZKmaGAqBwATqE.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','401, 93, 481, 133',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('InteractionDiagram_28p5KmaGAqBwATsn.html?shapeid=eXz5KmaGAqBwATt4/callLogger/LifeLine')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '401, 93, 481, 133')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="639, 186, 732, 226" coords2="639, 186, 732, 226" shape="rect" alt="Blacklist:Class" id="areadiagram_map_nZ1uKmaGAqBwATkC" href="Class_nZ1uKmaGAqBwATkD.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="636, 81, 729, 121" coords2="636, 81, 729, 121" shape="rect" alt="Whitelist:Class" id="areadiagram_map_5JFuKmaGAqBwATj3" href="Class_5JFuKmaGAqBwATj4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="25, 189, 174, 254.0" coords2="25, 189, 174, 254.0" shape="rect" alt="CallAttendant:Class" id="areadiagram_map_9MNjymaGAqBwASIH" href="Class_9MNjymaGAqBwASIJ.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','25, 189, 174, 242',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('InteractionDiagram_28p5KmaGAqBwATsn.html?shapeid=A1l5KmaGAqBwATtS/phone/LifeLine')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '25, 189, 174, 242')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="362, 168, 496, 263.0" coords2="362, 168, 496, 263.0" shape="rect" alt="CallScreener:Class" id="areadiagram_map_FOhdymaGAqBwASAJ" href="Class_FOhdymaGAqBwASAK.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','362, 168, 496, 251',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('InteractionDiagram_28p5KmaGAqBwATsn.html?shapeid=GpN5KmaGAqBwATtl/blocker/LifeLine')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '362, 168, 496, 251')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="330, 40, 757, 341" coords2="330, 40, 757, 341" shape="rect" alt="Screening:Package" id="areadiagram_map_nL8RTmaGAqBwARbj" href="Package_nL8RTmaGAqBwARbk.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		callattendent	</div>
+</body>
+</html>
