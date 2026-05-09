@@ -1,54 +1,66 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#  test_calllogger.py
-#
-#  Copyright 2020 Bruce Schubert  <bruce@emxsys.com>
-#
-#  Permission is hereby granted, free of charge, to any person obtaining a copy
-#  of this software and associated documentation files (the "Software"), to deal
-#  in the Software without restriction, including without limitation the rights
-#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#  copies of the Software, and to permit persons to whom the Software is
-#  furnished to do so, subject to the following conditions:
-#
-#  The above copyright notice and this permission notice shall be included in all
-#  copies or substantial portions of the Software.
-#
-#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#  SOFTWARE.
 
 import sqlite3
 import pytest
+from typing import Dict, Generator, Any
 
 from callattendant.screening.calllogger import CallLogger
 
 
-@pytest.fixture(scope='module')
-def calllogger():
+@pytest.fixture(scope="function")
+def db_connection() -> Generator[sqlite3.Connection, None, None]:
+    """
+    Creates a fresh in-memory SQLite database per test.
+    """
+    conn = sqlite3.connect(":memory:")
+    conn.row_factory = sqlite3.Row
 
-    # Create the test db in RAM
-    db = sqlite3.connect(":memory:")
+    # If CallLogger expects tables, initialize them here
+    # (adjust schema based on your actual implementation)
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS call_log (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            number TEXT,
+            date TEXT,
+            time TEXT,
+            status TEXT,
+            reason TEXT
+        )
+    """)
+    conn.commit()
 
-    # Mock the application config, which is a dict-based object
-    config = {}
-    config['DEBUG'] = True
-    config['TESTING'] = True
+    yield conn
 
-    # Create the CallLogger to be tested
-    calllogger = CallLogger(db, config)
-
-    return calllogger
+    conn.close()
 
 
-def test_add_caller(calllogger):
+@pytest.fixture(scope="function")
+def config() -> Dict[str, Any]:
+    """
+    Mock application configuration.
+    """
+    return {
+        "DEBUG": True,
+        "TESTING": True,
+    }
 
-    # Caller to be added
+
+@pytest.fixture(scope="function")
+def calllogger(db_connection, config) -> CallLogger:
+    """
+    Creates a fresh CallLogger instance for each test.
+    """
+    return CallLogger(db_connection, config)
+
+
+def test_add_caller(calllogger: CallLogger):
+    """
+    Verify that call logging increments correctly.
+    """
+
     callerid = {
         "NAME": "Bruce",
         "NMBR": "1234567890",
@@ -56,6 +68,8 @@ def test_add_caller(calllogger):
         "TIME": "0600",
     }
 
-    assert calllogger.log_caller(callerid, "Permitted", "Test1") == 1
+    first_result = calllogger.log_caller(callerid, "Permitted", "Test1")
+    assert first_result == 1, "First log entry should return ID 1"
 
-    assert calllogger.log_caller(callerid) == 2
+    second_result = calllogger.log_caller(callerid)
+    assert second_result == 2, "Second log entry should return ID 2"
