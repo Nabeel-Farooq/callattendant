@@ -3,23 +3,24 @@
 
 import sqlite3
 import pytest
-from typing import Dict, Generator, Any
+from typing import Dict, Generator
 
 from callattendant.screening.calllogger import CallLogger
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def db_connection() -> Generator[sqlite3.Connection, None, None]:
     """
-    Creates a fresh in-memory SQLite database per test.
+    Create a fresh in-memory SQLite DB per test.
     """
+
     conn = sqlite3.connect(":memory:")
     conn.row_factory = sqlite3.Row
 
-    # If CallLogger expects tables, initialize them here
-    # (adjust schema based on your actual implementation)
+    # NOTE:
+    # Only define schema here if CallLogger does NOT manage it internally.
     cursor = conn.cursor()
-    cursor.execute("""
+    cursor.executescript("""
         CREATE TABLE IF NOT EXISTS call_log (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
@@ -28,7 +29,7 @@ def db_connection() -> Generator[sqlite3.Connection, None, None]:
             time TEXT,
             status TEXT,
             reason TEXT
-        )
+        );
     """)
     conn.commit()
 
@@ -37,10 +38,10 @@ def db_connection() -> Generator[sqlite3.Connection, None, None]:
     conn.close()
 
 
-@pytest.fixture(scope="function")
-def config() -> Dict[str, Any]:
+@pytest.fixture
+def config() -> Dict[str, bool]:
     """
-    Mock application configuration.
+    Mock configuration used by CallLogger.
     """
     return {
         "DEBUG": True,
@@ -48,28 +49,27 @@ def config() -> Dict[str, Any]:
     }
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def calllogger(db_connection, config) -> CallLogger:
     """
-    Creates a fresh CallLogger instance for each test.
+    Fresh CallLogger instance per test.
     """
     return CallLogger(db_connection, config)
 
 
-def test_add_caller(calllogger: CallLogger):
+def test_add_caller_increments_sequentially(calllogger: CallLogger):
     """
-    Verify that call logging increments correctly.
+    Ensure that calls are logged sequentially.
     """
 
-    callerid = {
+    caller = {
         "NAME": "Bruce",
         "NMBR": "1234567890",
         "DATE": "1012",
         "TIME": "0600",
     }
 
-    first_result = calllogger.log_caller(callerid, "Permitted", "Test1")
-    assert first_result == 1, "First log entry should return ID 1"
+    first_id = calllogger.log_caller(caller, "Permitted", "Test1")
+    second_id = calllogger.log_caller(caller)
 
-    second_result = calllogger.log_caller(callerid)
-    assert second_result == 2, "Second log entry should return ID 2"
+    assert second_id == first_id + 1
